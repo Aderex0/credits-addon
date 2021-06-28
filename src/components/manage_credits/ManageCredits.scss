@@ -1,0 +1,97 @@
+$wlOrange: rgb(250, 111, 0);
+
+// 1. Manage Credits.js
+.manage-credits-btn-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+
+  p {
+    margin: 0px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+// Credits Panel.js
+
+.credits-panel-container {
+  position: relative;
+}
+
+.cp-text-area {
+  width: 100%;
+  text-align: center;
+
+  h3 {
+    font-size: 24pt;
+    margin: 20px 5px 0px;
+  }
+
+  h2 {
+    font-size: 28pt;
+    margin: 20px 5px 0px;
+    color: $wlOrange;
+  }
+
+  p {
+    font-size: 18px;
+    margin: 0px 0px 20px 0px;
+  }
+}
+
+.cp-buttons {
+  width: 100%;
+  text-align: center;
+  height: 180px;
+
+  button {
+    width: 70%;
+    margin: 6px 0px;
+  }
+}
+
+// 3. Credit Editor
+
+.cp-editor-container {
+  width: 100%;
+  text-align: center;
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    label {
+      width: 100%;
+      text-align: center;
+      margin: 5px 0px;
+    }
+
+    input {
+      width: 40%;
+      height: 30px;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    button {
+      margin: 15px 0px 10px 0px;
+    }
+  }
+}
+
+.editor-slider {
+  border-top: 1px solid black;
+  position: absolute;
+  height: 180px;
+  background-color: white;
+  z-index: 10;
+  overflow: hidden;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+  transform: translateY(180px);
+}

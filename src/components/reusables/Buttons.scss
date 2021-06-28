@@ -1,0 +1,20 @@
+.button-outline {
+  // Default color is grey
+  background-color: grey;
+  color: white;
+  width: auto;
+  border: none;
+  border-radius: 99px;
+  padding: 10px 20px;
+  height: initial;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  -webkit-box-align: center;
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
