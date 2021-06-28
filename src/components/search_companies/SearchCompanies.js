@@ -1,93 +1,105 @@
 // API
-import { useQuery } from "@apollo/client";
-import { getCompanies } from "../../graphql/queries";
+import { useQuery } from '@apollo/client'
+import { getCompanies } from '../../graphql/queries'
 // Components
-import PreviewSearch from "./PreviewSearch";
+import Button from '../reusables/Button'
 // React
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
+// Style
+import './SearchCompanies.scss'
 
 const SearchCompanies = () => {
-  const [companies, setCompanies] = useState([{}]);
+  const [companies, setCompanies] = useState([{}])
   // Data fetching list of companies
-  const { data } = useQuery(getCompanies);
+  const { data } = useQuery(getCompanies)
 
   useEffect(() => {
     if (data) {
-      setCompanies(data.getCompanies);
+      setCompanies(data.getCompanies)
     }
-  }, [data]);
+  }, [data])
 
-  const [active, setActive] = useState(0);
-  const [filtered, setFiltered] = useState([{}]);
-  const [isShow, setIsShow] = useState(false);
-  const [input, setInput] = useState("");
+  const [active, setActive] = useState(0)
+  const [filtered, setFiltered] = useState([{}])
+  const [isShow, setIsShow] = useState(false)
+  const [input, setInput] = useState({
+    id: '',
+    name: ''
+  })
 
-  const onChange = (e) => {
-    const input = e.currentTarget.value;
+  // Autocomplete
+  const onChange = e => {
+    const input = e.currentTarget.value
     const newFilteredSuggestions = companies.filter(
-      (company) => company["name"].toLowerCase().indexOf(input.toLowerCase()) > -1
-    );
+      company => company['name'].toLowerCase().indexOf(input.toLowerCase()) > -1
+    )
 
-    console.log(newFilteredSuggestions);
-    setActive(0);
-    setFiltered(newFilteredSuggestions);
-    setIsShow(true);
-    setInput(e.currentTarget.value);
-  };
-  const onClick = (e) => {
-    setActive(0);
-    setFiltered([]);
-    setIsShow(false);
-    setInput(e.currentTarget.innerText);
-  };
-  const onKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      // enter key
-      setActive(0);
-      setIsShow(false);
-      setInput(filtered[active]);
-    } else if (e.keyCode === 38) {
-      // up arrow
-      return active === 0 ? null : setActive(active - 1);
-    } else if (e.keyCode === 40) {
-      // down arrow
-      return active - 1 === filtered.length ? null : setActive(active + 1);
-    }
-  };
+    setActive(0)
+    setFiltered(newFilteredSuggestions)
+    setIsShow(true)
+    setInput({
+      id: '',
+      name: e.currentTarget.value
+    })
+  }
+
+  const onClick = (e, suggestion) => {
+    setActive(0)
+    setFiltered([])
+    setIsShow(false)
+    setInput({
+      id: suggestion.id,
+      name: suggestion.name
+    })
+  }
+
   const renderAutocomplete = () => {
     if (isShow && input) {
       if (filtered.length) {
         return (
-          <ul className="autocomplete">
+          <ul className='autocomplete'>
             {filtered.map((suggestion, index) => {
-              let className;
+              let className
               if (index === active) {
-                className = "active";
+                className = 'active'
               }
               return (
-                <li className={className} key={suggestion.name} onClick={onClick}>
+                <li
+                  className={className}
+                  key={suggestion.name}
+                  onClick={e => onClick(e, suggestion)}
+                >
                   {suggestion.name}
                 </li>
-              );
+              )
             })}
           </ul>
-        );
+        )
       } else {
         return (
-          <div className="no-autocomplete">
+          <div className='no-autocomplete'>
             <em>Not found</em>
           </div>
-        );
+        )
       }
     }
-    return <></>;
-  };
+    return <></>
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    window.location.href = `/${input.id}`
+  }
+
   return (
     <>
-      <input type="text" onChange={onChange} onKeyDown={onKeyDown} value={input} />
+      <form className='search-form' onSubmit={e => handleSubmit(e)}>
+        <input type='text' onChange={onChange} value={input.name} />
+        <Button text='Search' btnColor='rgb(250, 111, 0)' />
+      </form>
       {renderAutocomplete()}
     </>
-  );
-};
+  )
+}
 
-export default SearchCompanies;
+export default SearchCompanies
