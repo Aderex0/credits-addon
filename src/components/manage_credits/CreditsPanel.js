@@ -3,23 +3,24 @@ import Button from '../reusables/Button'
 import CreditEditor from './CreditEditor'
 // React
 import { useState, useEffect } from 'react'
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
+import { closeModal, triggerEditor } from '../../redux/actions/companies.action'
 // Styles
 import './ManageCredits.scss'
 
-const CreditsPanel = ({ setCompanyObj, companyObj, setOpenModal }) => {
+const CreditsPanel = () => {
+  const dispatch = useDispatch()
+  const companyObj = useSelector(state => state.companies.company)
+  const openEditor = useSelector(state => state.companies.openEditor)
   const [initCredits, setInitCredits] = useState(0)
   const [inputText, setInputText] = useState('')
-  // Add true means Add capability is enabled, Add false means edit capability is enabled. Add starts with 0, edit with credit amount.
-  const [openEditor, setOpenEditor] = useState({
-    open: false,
-    add: false
-  })
 
   const handleEditorOpening = operator => {
     // operator; true = 'add', false ='edit'
     setInputText(operator ? 'Add' : 'Edit')
     setInitCredits(operator ? 0 : companyObj.credits)
-    setOpenEditor({ open: true, add: operator })
+    dispatch(triggerEditor({ open: true, add: operator }))
   }
 
   // SLIDER STYLING
@@ -42,13 +43,7 @@ const CreditsPanel = ({ setCompanyObj, companyObj, setOpenModal }) => {
       </div>
       {/*Editor slider gives the sliding effect when one of the Buttons to ADD or EDIT is triggered*/}
       <div className='editor-slider'>
-        <CreditEditor
-          companyObj={companyObj}
-          initCredits={initCredits}
-          inputText={inputText}
-          setOpenEditor={setOpenEditor}
-          setCompanyObj={setCompanyObj}
-        />
+        <CreditEditor initCredits={initCredits} inputText={inputText} />
       </div>
       {/* Add or Edit buttons */}
       <div className='cp-buttons'>
@@ -65,7 +60,7 @@ const CreditsPanel = ({ setCompanyObj, companyObj, setOpenModal }) => {
         <Button
           text='Back'
           btnColor='rgb(0, 62, 76)'
-          onClick={() => setOpenModal(false)}
+          onClick={() => dispatch(closeModal())}
         />
       </div>
     </div>

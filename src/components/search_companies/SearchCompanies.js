@@ -1,24 +1,23 @@
-// API
-import { useQuery } from '@apollo/client'
-import { getCompanies } from '../../graphql/queries'
 // Components
 import Button from '../reusables/Button'
 // React
 import { useEffect, useState } from 'react'
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { getCompaniesRequest } from '../../redux/actions/companies.action'
 // Style
 import './SearchCompanies.scss'
 
 const SearchCompanies = () => {
-  const [companies, setCompanies] = useState([{}])
+  const dispatch = useDispatch()
   // Data fetching list of companies
-  const { data } = useQuery(getCompanies)
+  const companies = useSelector(state => state.companies.companies)
 
   useEffect(() => {
-    if (data) {
-      setCompanies(data.getCompanies)
-    }
-  }, [data])
+    dispatch(getCompaniesRequest())
+  }, [])
 
+  // Autocomplete
   const [active, setActive] = useState(0)
   const [filtered, setFiltered] = useState([{}])
   const [isShow, setIsShow] = useState(false)
@@ -27,7 +26,6 @@ const SearchCompanies = () => {
     name: ''
   })
 
-  // Autocomplete
   const onChange = e => {
     const input = e.currentTarget.value
     const newFilteredSuggestions = companies.filter(

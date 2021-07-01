@@ -5,14 +5,13 @@ import { updateCreditsMutation } from '../../graphql/mutations'
 import Button from '../reusables/Button'
 // React
 import { useEffect, useState } from 'react'
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { triggerEditor } from '../../redux/actions/companies.action'
 
-const CreditEditor = ({
-  companyObj,
-  initCredits,
-  inputText,
-  setOpenEditor,
-  setCompanyObj
-}) => {
+const CreditEditor = ({ initCredits, inputText, setOpenEditor }) => {
+  const dispatch = useDispatch()
+  const companyObj = useSelector(state => state.companies.company)
   const [credits, setCredits] = useState(0)
   useEffect(() => setCredits(parseInt(initCredits, 10)), [initCredits])
 
@@ -21,20 +20,6 @@ const CreditEditor = ({
     setCredits(newCredits)
   }
 
-  // GRAPHQL
-  const [UpdateCredits, { err, data }] = useMutation(updateCreditsMutation)
-
-  useEffect(() => {
-    if (data) {
-      console.log(data)
-      setCompanyObj({
-        ...companyObj,
-        credits: data.updateCredits.credits
-      })
-      setOpenEditor({ open: false, add: undefined })
-    }
-  }, [data])
-
   // Submit ADD/EDIT credits
   const handleConfirm = e => {
     e.preventDefault()
@@ -42,16 +27,12 @@ const CreditEditor = ({
     // addValue === ADD / credits === EDIT
     const addValue = parseInt(companyObj.credits, 10) + credits
 
-    UpdateCredits({
-      variables: {
-        id: companyObj.id,
-        credits: initCredits === 0 ? addValue : credits
-      }
-    })
-
-    if (err) {
-      console.log(err)
-    }
+    // UpdateCredits({
+    //   variables: {
+    //     id: companyObj.id,
+    //     credits: initCredits === 0 ? addValue : credits
+    //   }
+    // })
   }
 
   return (
@@ -71,7 +52,7 @@ const CreditEditor = ({
       <Button
         text='Back'
         btnColor='rgb(0, 62, 76)'
-        onClick={() => setOpenEditor({ open: false, add: undefined })}
+        onClick={() => dispatch(triggerEditor({ open: false, add: undefined }))}
       />
     </div>
   )

@@ -1,12 +1,16 @@
 // API
-import { useQuery } from '@apollo/client'
-import { getCompany } from '../../graphql/queries'
+import {
+  getCompanyRequest,
+  openModal
+} from '../../redux/actions/companies.action'
 // Components
 import Button from '../reusables/Button'
 import Modal from '../reusables/Modal'
 import CreditsPanel from './CreditsPanel'
 // React
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+// Redux
+import { useDispatch, useSelector } from 'react-redux'
 // Styles
 import './ManageCredits.scss'
 
@@ -18,33 +22,26 @@ import './ManageCredits.scss'
 */
 
 const ManageCredits = () => {
-  const [openModal, setOpenModal] = useState(false)
-  const [companyObj, setCompanyObj] = useState({})
+  const dispatch = useDispatch()
   const localUri = window.location.pathname.split('/')[1]
-
-  const { data } = useQuery(getCompany, {
-    variables: { id: localUri }
-  })
+  // Company state
+  const companyObj = useSelector(state => state.companies.company)
 
   useEffect(() => {
-    if (data) setCompanyObj(data.getCompany)
-  }, [data])
+    dispatch(getCompanyRequest({ id: localUri }))
+  }, [])
 
   return (
     <div className='manage-credits-btn-container'>
       <Button
         text='Manage credits'
         btnColor='rgb(250, 111, 0)'
-        onClick={() => setOpenModal(true)}
+        onClick={() => dispatch(openModal())}
       />
       <p>Available credits: {companyObj.credits}</p>
       {/* Components displayed in modal are passed as children */}
-      <Modal open={openModal} setOpenModal={setOpenModal}>
-        <CreditsPanel
-          companyObj={companyObj}
-          setOpenModal={setOpenModal}
-          setCompanyObj={setCompanyObj}
-        />
+      <Modal>
+        <CreditsPanel />
       </Modal>
     </div>
   )
