@@ -17,7 +17,7 @@ $wlOrange: rgb(250, 111, 0);
 
 .credits-panel-container {
   position: relative;
-  width: 250px;
+  width: 100%;
 }
 
 .cp-text-area {
@@ -44,7 +44,7 @@ $wlOrange: rgb(250, 111, 0);
 .cp-buttons {
   width: 100%;
   text-align: center;
-  height: 180px;
+  height: 220px;
 
   button {
     width: 70%;
@@ -55,7 +55,6 @@ $wlOrange: rgb(250, 111, 0);
 // 3. Credit Editor
 
 .cp-editor-container {
-  width: 250px;
   text-align: center;
 
   form {
@@ -84,9 +83,10 @@ $wlOrange: rgb(250, 111, 0);
 }
 
 .editor-slider {
+  width: 100%;
   border-top: 1px solid black;
   position: absolute;
-  height: 180px;
+  height: 220px;
   background-color: white;
   z-index: 10;
   overflow: hidden;
@@ -94,5 +94,5 @@ $wlOrange: rgb(250, 111, 0);
   -moz-transition: 0.4s;
   -o-transition: 0.4s;
   transition: 0.4s;
-  transform: translateY(180px);
+  transform: translateY(220px);
 }

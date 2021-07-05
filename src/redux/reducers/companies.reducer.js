@@ -1,14 +1,4 @@
-import {
-  GET_COMPANIES_REQUEST,
-  GET_COMPANIES_SUCCESS,
-  GET_COMPANIES_FAIL,
-  GET_COMPANY_REQUEST,
-  GET_COMPANY_SUCCESS,
-  GET_COMPANY_FAIL,
-  OPEN_MODAL,
-  CLOSE_MODAL,
-  TRIGGER_EDITOR
-} from '../actions/companies.action'
+import { types } from "../actions/companies.action";
 
 const initialState = {
   companies: [],
@@ -16,70 +6,82 @@ const initialState = {
   error: null,
   company: {},
   openModal: false,
-  openEditor: {
-    open: false,
-    add: false
-  }
-}
+  credits: 0,
+  // When adding to openSlider, change switch statement of CLOSE_MODAL
+  openSlider: {
+    add: false,
+    edit: false,
+    log: false,
+  },
+};
 
 const companies = (state = initialState, { type, payload }) => {
   switch (type) {
-    case GET_COMPANIES_REQUEST:
+    case types.UPDATE_CREDITS_REQUEST:
+    case types.GET_COMPANY_REQUEST:
+    case types.GET_COMPANIES_REQUEST:
       return {
         ...state,
-        loading: true
-      }
-    case GET_COMPANIES_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        companies: payload
-      }
-    case GET_COMPANIES_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: payload
-      }
-    case GET_COMPANY_REQUEST:
-      return {
-        ...state,
-        loading: true
-      }
-    case GET_COMPANY_SUCCESS:
+        loading: true,
+      };
+    case types.UPDATE_CREDITS_FAIL:
+    case types.GET_COMPANIES_FAIL:
+    case types.GET_COMPANY_FAIL:
       return {
         ...state,
         loading: false,
-        company: payload
-      }
-    case GET_COMPANY_FAIL:
+        error: payload,
+      };
+    case types.UPDATE_CREDITS_SUCCESS:
       return {
         ...state,
         loading: false,
-        error: payload
-      }
-    case OPEN_MODAL:
+        company: {
+          ...state.company,
+          credits: payload.credits,
+        },
+      };
+    case types.GET_COMPANIES_SUCCESS:
       return {
         ...state,
-        openModal: true
-      }
-    case CLOSE_MODAL:
+        loading: false,
+        companies: payload,
+      };
+
+    case types.GET_COMPANY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        company: payload,
+      };
+    case types.OPEN_MODAL:
+      return {
+        ...state,
+        openModal: true,
+      };
+    case types.CLOSE_MODAL:
       return {
         ...state,
         openModal: false,
-        openEditor: {
-          open: false,
-          add: false
-        }
-      }
-    case TRIGGER_EDITOR:
+        openSlider: {
+          add: false,
+          edit: false,
+          log: false,
+        },
+      };
+    case types.TRIGGER_SLIDER:
       return {
         ...state,
-        openEditor: payload
-      }
+        openSlider: payload,
+      };
+    case types.ADD_CREDITS:
+      return {
+        ...state,
+        credits: payload,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default companies
+export default companies;
