@@ -1,92 +1,112 @@
 export const types = {
-  ADD_CREDITS: "ADD_CREDITS",
-  TRIGGER_SLIDER: "TRIGGER_SLIDER",
-  OPEN_MODAL: "OPEN_MODAL",
-  CLOSE_MODAL: "CLOSE_MODAL",
-  GET_COMPANIES_REQUEST: "GET_COMPANIES_REQUEST",
-  GET_COMPANIES_SUCCESS: "GET_COMPANIES_SUCCESS",
-  GET_COMPANIES_FAIL: "GET_COMPANIES_FAIL",
-  GET_COMPANY_REQUEST: "GET_COMPANY_REQUEST",
-  GET_COMPANY_SUCCESS: "GET_COMPANY_SUCCESS",
-  GET_COMPANY_FAIL: "GET_COMPANY_FAIL",
-  UPDATE_CREDITS_REQUEST: "UPDATE_CREDITS_REQUEST",
-  UPDATE_CREDITS_SUCCESS: "UPDATE_CREDITS_SUCCESS",
-  UPDATE_CREDITS_FAIL: "UPDATE_CREDITS_FAIL",
-};
+  ADD_CREDITS: 'ADD_CREDITS',
+  TRIGGER_SLIDER: 'TRIGGER_SLIDER',
+  OPEN_MODAL: 'OPEN_MODAL',
+  CLOSE_MODAL: 'CLOSE_MODAL',
+  GET_COMPANIES_REQUEST: 'GET_COMPANIES_REQUEST',
+  GET_COMPANIES_SUCCESS: 'GET_COMPANIES_SUCCESS',
+  GET_COMPANIES_FAIL: 'GET_COMPANIES_FAIL',
+  GET_COMPANY_REQUEST: 'GET_COMPANY_REQUEST',
+  GET_COMPANY_SUCCESS: 'GET_COMPANY_SUCCESS',
+  GET_COMPANY_FAIL: 'GET_COMPANY_FAIL',
+  UPDATE_CREDITS_REQUEST: 'UPDATE_CREDITS_REQUEST',
+  UPDATE_CREDITS_SUCCESS: 'UPDATE_CREDITS_SUCCESS',
+  UPDATE_CREDITS_FAIL: 'UPDATE_CREDITS_FAIL',
+  GET_LOGS_REQUEST: 'GET_LOGS_REQUEST',
+  GET_LOGS_SUCCESS: 'GET_LOGS_SUCCESS',
+  GET_LOGS_FAIL: 'GET_LOGS_FAIL'
+}
 
 // 1. CONTROLLED CREDIT FORM
 
-export const addCredits = (payload) => ({
+export const addCredits = payload => ({
   type: types.ADD_CREDITS,
-  payload,
-});
+  payload
+})
 
 // 2. OPEN/CLOSE SLIDER
 
-export const triggerSlider = (payload) => ({
+export const triggerSlider = payload => ({
   type: types.TRIGGER_SLIDER,
-  payload,
-});
+  payload
+})
 
 // 3. OPEN/CLOSE MODAL
 
-export const openModal = (payload) => ({
+export const openModal = payload => ({
   type: types.OPEN_MODAL,
-  payload,
-});
+  payload
+})
 
-export const closeModal = (payload) => ({
+export const closeModal = payload => ({
   type: types.CLOSE_MODAL,
-  payload,
-});
+  payload
+})
 
 // 4. GET ALL COMPANIES
 
-export const getCompaniesRequest = (payload) => ({
+export const getCompaniesRequest = payload => ({
   type: types.GET_COMPANIES_REQUEST,
-  payload,
-});
+  payload
+})
 
-export const getCompaniesSuccess = (payload) => ({
+export const getCompaniesSuccess = payload => ({
   type: types.GET_COMPANIES_SUCCESS,
-  payload,
-});
+  payload
+})
 
-export const getCompaniesFail = (payload) => ({
+export const getCompaniesFail = payload => ({
   type: types.GET_COMPANIES_FAIL,
-  payload,
-});
+  payload
+})
 
 // 5. GET COMPANY
 
-export const getCompanyRequest = (payload) => ({
+export const getCompanyRequest = payload => ({
   type: types.GET_COMPANY_REQUEST,
-  payload,
-});
+  payload
+})
 
-export const getCompanySuccess = (payload) => ({
+export const getCompanySuccess = payload => ({
   type: types.GET_COMPANY_SUCCESS,
-  payload,
-});
+  payload
+})
 
-export const getCompanyFail = (payload) => ({
+export const getCompanyFail = payload => ({
   type: types.GET_COMPANY_FAIL,
-  payload,
-});
+  payload
+})
 
 // 6. UPDATE CREDITS
 
-export const updateCreditsRequest = (payload) => ({
+export const updateCreditsRequest = payload => ({
   type: types.UPDATE_CREDITS_REQUEST,
-  payload,
-});
+  payload
+})
 
-export const updateCreditsSuccess = (payload) => ({
+export const updateCreditsSuccess = payload => ({
   type: types.UPDATE_CREDITS_SUCCESS,
-  payload,
-});
+  payload
+})
 
-export const updateCreditsFail = (payload) => ({
+export const updateCreditsFail = payload => ({
   type: types.UPDATE_CREDITS_FAIL,
-  payload,
-});
+  payload
+})
+
+// 7. GET LOGS REQUEST
+
+export const getLogsRequest = payload => ({
+  type: types.GET_LOGS_REQUEST,
+  payload
+})
+
+export const getLogsSuccess = payload => ({
+  type: types.GET_LOGS_SUCCESS,
+  payload
+})
+
+export const getLogsFail = payload => ({
+  type: types.GET_LOGS_FAIL,
+  payload
+})

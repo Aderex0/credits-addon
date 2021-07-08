@@ -18,3 +18,13 @@ export const getCompany = gql`
     }
   }
 `
+
+export const getLogsByCompany = gql`
+  query getLogsByCompany($companyId: ID!) {
+    getLogsByCompany(companyId: $companyId) {
+      newValue
+      oldValue
+      createdAt
+    }
+  }
+`
