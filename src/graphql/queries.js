@@ -1,30 +1,30 @@
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
-export const getCompanies = gql`
+export const getOrganisations = gql`
   query {
-    getCompanies {
+    getOrganisations {
       id
       name
     }
   }
-`
+`;
 
-export const getCompany = gql`
-  query getCompany($id: ID!) {
-    getCompany(id: $id) {
+export const getOrganisation = gql`
+  query getOrganisation($id: ID!) {
+    getOrganisation(id: $id) {
       id
       name
       credits
     }
   }
-`
+`;
 
-export const getLogsByCompany = gql`
-  query getLogsByCompany($companyId: ID!) {
-    getLogsByCompany(companyId: $companyId) {
+export const getLogsByOrganisation = gql`
+  query getLogsByOrganisation($organisationId: ID!) {
+    getLogsByOrganisation(organisationId: $organisationId) {
       newValue
       oldValue
       createdAt
     }
   }
-`
+`;

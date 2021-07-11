@@ -1,10 +1,10 @@
-import { types } from '../actions/companies.action'
+import { types } from "../actions/credits.action";
 
 const initialState = {
-  companies: [],
+  organisations: [],
   loading: false,
   error: null,
-  company: {},
+  organisation: {},
   openModal: false,
   credits: 0,
   log: [],
@@ -12,62 +12,62 @@ const initialState = {
   openSlider: {
     add: false,
     edit: false,
-    log: false
-  }
-}
+    log: false,
+  },
+};
 
-const companies = (state = initialState, { type, payload }) => {
+const credits = (state = initialState, { type, payload }) => {
   switch (type) {
     case types.UPDATE_CREDITS_REQUEST:
-    case types.GET_COMPANY_REQUEST:
-    case types.GET_COMPANIES_REQUEST:
+    case types.GET_ORGANISATION_REQUEST:
+    case types.GET_ORGANISATIONS_REQUEST:
     case types.GET_LOGS_REQUEST:
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case types.UPDATE_CREDITS_FAIL:
-    case types.GET_COMPANIES_FAIL:
-    case types.GET_COMPANY_FAIL:
+    case types.GET_ORGANISATIONS_FAIL:
+    case types.GET_ORGANISATION_FAIL:
     case types.GET_LOGS_FAIL:
       return {
         ...state,
         loading: false,
-        error: payload
-      }
+        error: payload,
+      };
     case types.GET_LOGS_SUCCESS:
       return {
         ...state,
         loading: false,
-        log: payload
-      }
+        log: payload,
+      };
     case types.UPDATE_CREDITS_SUCCESS:
       return {
         ...state,
         loading: false,
-        company: {
-          ...state.company,
-          credits: payload.credits
-        }
-      }
-    case types.GET_COMPANIES_SUCCESS:
+        organisation: {
+          ...state.organisation,
+          credits: payload.credits,
+        },
+      };
+    case types.GET_ORGANISATIONS_SUCCESS:
       return {
         ...state,
         loading: false,
-        companies: payload
-      }
+        organisations: payload,
+      };
 
-    case types.GET_COMPANY_SUCCESS:
+    case types.GET_ORGANISATION_SUCCESS:
       return {
         ...state,
         loading: false,
-        company: payload
-      }
+        organisation: payload,
+      };
     case types.OPEN_MODAL:
       return {
         ...state,
-        openModal: true
-      }
+        openModal: true,
+      };
     case types.CLOSE_MODAL:
       return {
         ...state,
@@ -76,22 +76,22 @@ const companies = (state = initialState, { type, payload }) => {
         openSlider: {
           add: false,
           edit: false,
-          log: false
-        }
-      }
+          log: false,
+        },
+      };
     case types.TRIGGER_SLIDER:
       return {
         ...state,
-        openSlider: payload
-      }
+        openSlider: payload,
+      };
     case types.ADD_CREDITS:
       return {
         ...state,
-        credits: payload
-      }
+        credits: payload,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default companies
+export default credits;

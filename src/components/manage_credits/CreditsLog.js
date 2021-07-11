@@ -1,34 +1,31 @@
 // Components
-import Button from '../reusables/Button'
-import Loading from '../reusables/Loading'
+import Button from "../reusables/Button";
+import Loading from "../reusables/Loading";
 // React
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  getLogsRequest,
-  triggerSlider
-} from '../../redux/actions/companies.action'
+import { useDispatch, useSelector } from "react-redux";
+import { getLogsRequest, triggerSlider } from "../../redux/actions/credits.action";
 
 const CreditsLog = () => {
-  const dispatch = useDispatch()
-  const company = useSelector(state => state.companies.company)
-  const log = useSelector(state => state.companies.log)
-  const loading = useSelector(state => state.companies.loading)
+  const dispatch = useDispatch();
+  const organisation = useSelector((state) => state.credits.organisation);
+  const log = useSelector((state) => state.credits.log);
+  const loading = useSelector((state) => state.credits.loading);
 
-  const logLength = log.length
+  const logLength = log.length;
 
   useEffect(() => {
-    if (company.id) dispatch(getLogsRequest({ companyId: company.id }))
-  }, [])
+    if (organisation.id) dispatch(getLogsRequest({ organisationId: organisation.id }));
+  }, []);
 
   return (
     <>
       {loading && <Loading />}
       {!loading && (
-        <div className='credits-log-container'>
+        <div className="credits-log-container">
           {logLength > 0 ? (
-            <div className='table-wrapper'>
+            <div className="table-wrapper">
               <table>
                 <thead>
                   <tr>
@@ -52,14 +49,14 @@ const CreditsLog = () => {
             <h2>Log is empty</h2>
           )}
           <Button
-            text='Back'
-            btnColor='rgb(0, 62, 76)'
+            text="Back"
+            btnColor="rgb(0, 62, 76)"
             onClick={() =>
               dispatch(
                 triggerSlider({
                   add: false,
                   edit: false,
-                  log: false
+                  log: false,
                 })
               )
             }
@@ -67,7 +64,7 @@ const CreditsLog = () => {
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default CreditsLog
+export default CreditsLog;

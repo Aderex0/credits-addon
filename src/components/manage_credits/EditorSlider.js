@@ -1,25 +1,25 @@
 // React
-import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 //
 
 const EditorSlider = ({ children }) => {
-  const openSlider = useSelector(state => state.companies.openSlider)
+  const openSlider = useSelector((state) => state.credits.openSlider);
 
   // SLIDER STYLING
   useEffect(() => {
-    const slider = document.querySelector('.editor-slider')
+    const slider = document.querySelector(".editor-slider");
 
     if (openSlider) {
       openSlider.add || openSlider.edit
-        ? (slider.style.transform = 'translateY(0px)')
+        ? (slider.style.transform = "translateY(0px)")
         : openSlider.log
-        ? (slider.style.transform = 'translateY(-181px)')
-        : (slider.style.transform = 'translateY(220px)')
+        ? (slider.style.transform = "translateY(-181px)")
+        : (slider.style.transform = "translateY(220px)");
     }
-  }, [openSlider])
+  }, [openSlider]);
 
-  return <div className='editor-slider'>{children}</div>
-}
+  return <div className="editor-slider">{children}</div>;
+};
 
-export default EditorSlider
+export default EditorSlider;

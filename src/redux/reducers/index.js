@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
-import companies from './companies.reducer'
+import { combineReducers } from "redux";
+import credits from "./credits.reducer";
 
 const rootReducer = combineReducers({
-  companies
-})
+  credits,
+});
 
-export default rootReducer
+export default rootReducer;
