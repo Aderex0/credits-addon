@@ -1,6 +1,6 @@
-import { types } from "../actions/credits.action";
+import { types } from '../actions/credits.action'
 
-const initialState = {
+export const initialState = {
   organisations: [],
   loading: false,
   error: null,
@@ -12,86 +12,75 @@ const initialState = {
   openSlider: {
     add: false,
     edit: false,
-    log: false,
-  },
-};
+    log: false
+  }
+}
 
 const credits = (state = initialState, { type, payload }) => {
   switch (type) {
     case types.UPDATE_CREDITS_REQUEST:
     case types.GET_ORGANISATION_REQUEST:
     case types.GET_ORGANISATIONS_REQUEST:
-    case types.GET_LOGS_REQUEST:
+    case types.GET_LOGS_BY_ORGANISATION_REQUEST:
       return {
         ...state,
-        loading: true,
-      };
+        loading: true
+      }
     case types.UPDATE_CREDITS_FAIL:
     case types.GET_ORGANISATIONS_FAIL:
     case types.GET_ORGANISATION_FAIL:
-    case types.GET_LOGS_FAIL:
+    case types.GET_LOGS_BY_ORGANISATION_FAIL:
       return {
         ...state,
         loading: false,
-        error: payload,
-      };
-    case types.GET_LOGS_SUCCESS:
+        error: payload
+      }
+    case types.GET_LOGS_BY_ORGANISATION_SUCCESS:
       return {
         ...state,
         loading: false,
-        log: payload,
-      };
+        log: payload
+      }
     case types.UPDATE_CREDITS_SUCCESS:
       return {
         ...state,
         loading: false,
         organisation: {
           ...state.organisation,
-          credits: payload.credits,
-        },
-      };
+          credits: payload.credits
+        }
+      }
     case types.GET_ORGANISATIONS_SUCCESS:
       return {
         ...state,
         loading: false,
-        organisations: payload,
-      };
+        organisations: payload
+      }
 
     case types.GET_ORGANISATION_SUCCESS:
       return {
         ...state,
         loading: false,
-        organisation: payload,
-      };
-    case types.OPEN_MODAL:
+        organisation: payload
+      }
+    case types.HANDLE_MODAL:
       return {
         ...state,
-        openModal: true,
-      };
-    case types.CLOSE_MODAL:
-      return {
-        ...state,
-        openModal: false,
-        error: null,
-        openSlider: {
-          add: false,
-          edit: false,
-          log: false,
-        },
-      };
+        payload
+      }
     case types.TRIGGER_SLIDER:
       return {
         ...state,
-        openSlider: payload,
-      };
+        openSlider: payload
+      }
     case types.ADD_CREDITS:
       return {
         ...state,
-        credits: payload,
-      };
+        credits: payload
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default credits;
+export default credits

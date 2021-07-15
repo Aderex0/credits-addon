@@ -1,7 +1,11 @@
-import { takeEvery, put, takeLatest } from "@redux-saga/core/effects";
-import { client } from "../../api/ApolloClient";
-import { getOrganisations, getOrganisation, getLogsByOrganisation } from "../../graphql/queries";
-import { updateCreditsMutation } from "../../graphql/mutations";
+// Redux
+import {
+  getLogsByOrganisationCall,
+  getOrganisationCall,
+  getOrganisationsCall,
+  updateCreditsCall
+} from './calls'
+import { takeEvery, put, takeLatest, call } from '@redux-saga/core/effects'
 import {
   getOrganisationsFail,
   getOrganisationsSuccess,
@@ -10,81 +14,78 @@ import {
   updateCreditsFail,
   updateCreditsSuccess,
   types,
-  getLogsSuccess,
-  getLogsFail,
-} from "../actions/credits.action";
-
-// TODO: add call to yields
+  getLogsByOrganisationSuccess,
+  getLogsByOrganisationFail
+} from '../actions/credits.action'
 
 // Get all
-function* getOrganisationsSaga() {
+function * getOrganisationsSaga () {
   try {
-    // call ?
-    const { data } = yield client.query({ query: getOrganisations });
-    yield put(getOrganisationsSuccess(data.getOrganisations));
+    const { data } = yield call(getOrganisationsCall)
+    yield put(getOrganisationsSuccess(data.getOrganisations))
   } catch (err) {
-    yield put(getOrganisationsFail(err.message));
+    yield put(getOrganisationsFail(err.message))
   }
 }
 
-export function* getOrganisationsWatcher() {
-  yield takeEvery(types.GET_ORGANISATIONS_REQUEST, getOrganisationsSaga);
+export function * getOrganisationsWatcher () {
+  yield takeEvery(types.GET_ORGANISATIONS_REQUEST, getOrganisationsSaga)
+}
+
+// Get Organisation
+export function * getOrganisationSaga (action) {
+  const { id } = action.payload
+
+  try {
+    const { data } = yield call(getOrganisationCall, { id })
+    if (data.getOrganisation) {
+      yield put(getOrganisationSuccess(data.getOrganisation))
+    } else {
+      yield put(getOrganisationFail('data not found'))
+    }
+  } catch (err) {
+    yield put(getOrganisationFail(err.message))
+  }
+}
+
+export function * getOrganisationWatcher () {
+  yield takeEvery(types.GET_ORGANISATION_REQUEST, getOrganisationSaga)
 }
 
 // Get Logs
-function* getOrganisationSaga(action) {
-  const { id } = action.payload;
+export function * getLogsByOrganisationSaga (action) {
+  const { organisationId } = action.payload
 
   try {
-    const { data } = yield client.query({
-      query: getOrganisation,
-      variables: { id },
-    });
-    yield put(getOrganisationSuccess(data.getOrganisation));
+    const { data } = yield call(getLogsByOrganisationCall, { organisationId })
+    yield put(getLogsByOrganisationSuccess(data.getLogsByOrganisation))
   } catch (err) {
-    yield put(getOrganisationFail(err.message));
+    yield put(getLogsByOrganisationFail(err.message))
   }
 }
 
-export function* getOrganisationWatcher() {
-  yield takeEvery(types.GET_ORGANISATION_REQUEST, getOrganisationSaga);
-}
-
-// Get Logs
-function* getLogsSaga(action) {
-  const { organisationId } = action.payload;
-
-  try {
-    const { data } = yield client.query({
-      query: getLogsByOrganisation,
-      variables: { organisationId },
-      fetchPolicy: "network-only",
-    });
-    yield put(getLogsSuccess(data.getLogsByOrganisation));
-  } catch (err) {
-    yield put(getLogsFail(err.message));
-  }
-}
-
-export function* getLogsWatcher() {
-  yield takeEvery(types.GET_LOGS_REQUEST, getLogsSaga);
+export function * getLogsWatcher () {
+  yield takeEvery(
+    types.GET_LOGS_BY_ORGANISATION_REQUEST,
+    getLogsByOrganisationSaga
+  )
 }
 
 // Update credits
-function* updateCreditsSaga(action) {
-  const { id, credits, oldValue } = action.payload;
+export function * updateCreditsSaga (action) {
+  const { id, credits, oldValue } = action.payload
   try {
-    const { data } = yield client.mutate({
-      mutation: updateCreditsMutation,
-      variables: { id, credits, oldValue },
-    });
-    console.log(data);
-    yield put(updateCreditsSuccess(data.updateCredits));
+    const { data } = yield call(updateCreditsCall, { id, credits, oldValue })
+    if (data.updateCredits) {
+      yield put(updateCreditsSuccess(data.updateCredits))
+    } else {
+      yield put(updateCreditsFail('data not found'))
+    }
   } catch (err) {
-    yield put(updateCreditsFail(err.message));
+    yield put(updateCreditsFail(err.message))
   }
 }
 
-export function* updateCreditsWatcher() {
-  yield takeLatest(types.UPDATE_CREDITS_REQUEST, updateCreditsSaga);
+export function * updateCreditsWatcher () {
+  yield takeLatest(types.UPDATE_CREDITS_REQUEST, updateCreditsSaga)
 }

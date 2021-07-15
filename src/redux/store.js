@@ -6,10 +6,11 @@ import rootSaga from './sagas/index'
 const sagaMiddleware = createSagaMiddleware()
 const withDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const store = createStore(
-  rootReducer,
-  withDevTools(applyMiddleware(sagaMiddleware))
-)
+export const makeStore = () => {
+  return createStore(rootReducer, withDevTools(applyMiddleware(sagaMiddleware)))
+}
+
+const store = makeStore()
 
 sagaMiddleware.run(rootSaga)
 
