@@ -1,4 +1,4 @@
-import { types } from '../actions/credits.action'
+import { types } from "../actions/credits.action";
 
 export const initialState = {
   organisations: [],
@@ -12,9 +12,9 @@ export const initialState = {
   openSlider: {
     add: false,
     edit: false,
-    log: false
-  }
-}
+    log: false,
+  },
+};
 
 const credits = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -24,8 +24,8 @@ const credits = (state = initialState, { type, payload }) => {
     case types.GET_LOGS_BY_ORGANISATION_REQUEST:
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case types.UPDATE_CREDITS_FAIL:
     case types.GET_ORGANISATIONS_FAIL:
     case types.GET_ORGANISATION_FAIL:
@@ -33,54 +33,54 @@ const credits = (state = initialState, { type, payload }) => {
       return {
         ...state,
         loading: false,
-        error: payload
-      }
+        error: payload,
+      };
     case types.GET_LOGS_BY_ORGANISATION_SUCCESS:
       return {
         ...state,
         loading: false,
-        log: payload
-      }
+        log: payload,
+      };
     case types.UPDATE_CREDITS_SUCCESS:
       return {
         ...state,
         loading: false,
         organisation: {
           ...state.organisation,
-          credits: payload.credits
-        }
-      }
+          credits: payload.credits,
+        },
+      };
     case types.GET_ORGANISATIONS_SUCCESS:
       return {
         ...state,
         loading: false,
-        organisations: payload
-      }
+        organisations: payload,
+      };
 
     case types.GET_ORGANISATION_SUCCESS:
       return {
         ...state,
         loading: false,
-        organisation: payload
-      }
+        organisation: payload,
+      };
     case types.HANDLE_MODAL:
       return {
         ...state,
-        payload
-      }
+        ...payload,
+      };
     case types.TRIGGER_SLIDER:
       return {
         ...state,
-        openSlider: payload
-      }
+        openSlider: payload,
+      };
     case types.ADD_CREDITS:
       return {
         ...state,
-        credits: payload
-      }
+        credits: payload,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default credits
+export default credits;

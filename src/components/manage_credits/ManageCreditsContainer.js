@@ -1,15 +1,16 @@
 // API
-import {
-  getOrganisationRequest,
-  handleModal
-} from '../../redux/actions/credits.action'
+import { getOrganisationRequest, handleModal } from "../../redux/actions/credits.action";
+// Components
+import Modal from "../reusables/Modal";
+import Error from "../reusables/Error";
+import ManageCredits from "./interfaces/ManageCredits";
+import CreditsPanelContainer from "../credits_panel/CreditsPanelContainer";
 // React
-import { useEffect } from 'react'
+import { useEffect } from "react";
 // Redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 // Styles
-import './ManageCredits.scss'
-import ManageCreditsInterface from './interfaces/ManageCredits'
+import "./ManageCredits.scss";
 
 // Manage Credits(api call) => Modal({children}) => Credits Panel(child) => CreditEditor
 
@@ -18,40 +19,33 @@ import ManageCreditsInterface from './interfaces/ManageCredits'
   WL Teal = rgb(0, 62, 76)
 */
 
-const ManageCredits = () => {
-  const dispatch = useDispatch()
+const ManageCreditsContainer = () => {
+  const dispatch = useDispatch();
   // State
-  const organisation = useSelector(state => state.credits.organisation)
-  const error = useSelector(state => state.credits.error)
+  const organisation = useSelector((state) => state.credits.organisation);
+  const error = useSelector((state) => state.credits.error);
 
   // API call getOrganisation
-  const id = window.location.pathname.split('/')[1]
+  const id = window.location.pathname.split("/")[1];
   useEffect(() => {
-    if (id) dispatch(getOrganisationRequest({ id }))
-  }, [id])
+    if (id) dispatch(getOrganisationRequest({ id }));
+  }, [id]);
 
   // Opens Modal
-  const handleModalOpening = operator => dispatch(handleModal(operator))
+  const handleModalOpening = (operator) => dispatch(handleModal(operator));
 
   return (
     <>
-      <ManageCreditsInterface
-        handleModalOpening={handleModalOpening}
-        organisation={organisation}
-      />
+      <ManageCredits handleModalOpening={handleModalOpening} organisation={organisation} />
       <Modal>
         {error ? (
           <Error />
         ) : (
-          <CreditsPanelContainer
-            organisation={organisation}
-            handleSliderOpening={handleSliderOpening}
-            handleModalOpening={handleModalOpening}
-          />
+          <CreditsPanelContainer organisation={organisation} handleModalOpening={handleModalOpening} />
         )}
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default ManageCredits
+export default ManageCreditsContainer;

@@ -1,7 +1,7 @@
 // React
 import { useEffect } from "react";
+// Redux
 import { useSelector } from "react-redux";
-//
 
 const EditorSlider = ({ children }) => {
   const openSlider = useSelector((state) => state.credits.openSlider);
@@ -19,7 +19,11 @@ const EditorSlider = ({ children }) => {
     }
   }, [openSlider]);
 
-  return <div className="editor-slider">{children}</div>;
+  return (
+    <div data-testid="slider" className="editor-slider">
+      {children}
+    </div>
+  );
 };
 
 export default EditorSlider;

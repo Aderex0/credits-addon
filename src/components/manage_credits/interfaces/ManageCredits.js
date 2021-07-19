@@ -1,23 +1,23 @@
 // Components
-import Button from '../../reusables/Button'
-import Modal from '../../reusables/Modal'
-import CreditsPanelContainer from '../../credits_panel/CreditsPanelContainer'
-import Error from '../../reusables/Error'
+import Button from "../../reusables/Button";
 // React
-import React from 'react'
+import React from "react";
 
 const ManageCredits = ({ handleModalOpening, organisation }) => {
+  const { credits } = organisation;
+
   return (
-    <div className='manage-credits-btn-container'>
+    <div className="manage-credits-btn-container">
       <Button
-        text='Manage credits'
-        btnColor='rgb(250, 111, 0)'
-        onClick={() => handleModalOpening(true)}
+        text="Manage credits"
+        testId="open-modal"
+        btnColor="rgb(250, 111, 0)"
+        onClick={() => handleModalOpening({ openModal: true })}
       />
-      <p data-testid='credits'>Available credits: {organisation.credits}</p>
+      <p data-testid="credits">{`Available credits: ${credits}`}</p>
       {/* Components displayed in modal are passed as children */}
     </div>
-  )
-}
+  );
+};
 
-export default ManageCredits
+export default ManageCredits;

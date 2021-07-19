@@ -1,8 +1,8 @@
 import "./Buttons.scss";
 
-const Button = ({ text, onClick, btnColor }) => {
+const Button = ({ text, onClick, btnColor, testId }) => {
   return (
-    <button style={{ backgroundColor: btnColor }} className="button-outline" onClick={onClick}>
+    <button data-testid={testId} style={{ backgroundColor: btnColor }} className="button-outline" onClick={onClick}>
       {text}
     </button>
   );
