@@ -24,16 +24,18 @@ const CreditsLog = ({ handleSliderOpening, loading, log }) => {
                 <tbody>
                   {log.map((entry, i) => (
                     <tr key={i}>
-                      <td>{entry.createdAt}</td>
-                      <td>{entry.oldValue}</td>
-                      <td>{entry.newValue}</td>
+                      <td data-testid='log-props-createdAt'>
+                        {entry.createdAt}
+                      </td>
+                      <td data-testid='log-props-oldValue'>{entry.oldValue}</td>
+                      <td data-testid='log-props-newValue'>{entry.newValue}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           ) : (
-            <h2>Log is empty</h2>
+            <h2 data-testid='empty-log'>Log is empty</h2>
           )}
           <Button
             text='Back'

@@ -19,7 +19,7 @@ const Loading = () => {
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
+    <div data-testid='loading' className={classes.root}>
       <CircularProgress color='inherit' />
     </div>
   )
