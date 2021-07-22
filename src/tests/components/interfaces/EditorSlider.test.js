@@ -26,6 +26,7 @@ describe("<EditorSlider />", () => {
 
   const slider = screen.getByTestId("slider");
 
+  // Test if component gets passed
   test("loads children", () => {
     expect(slider).toHaveTextContent("testChild");
   });

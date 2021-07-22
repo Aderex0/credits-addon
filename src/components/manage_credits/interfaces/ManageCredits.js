@@ -9,13 +9,12 @@ const ManageCredits = ({ handleModalOpening, organisation }) => {
   return (
     <div className="manage-credits-btn-container">
       <Button
-        text="Manage credits"
-        testId="open-modal"
+        text={"Manage credits"}
+        testId={"modal-button"}
         btnColor="rgb(250, 111, 0)"
         onClick={() => handleModalOpening({ openModal: true })}
       />
       <p data-testid="credits">{`Available credits: ${credits}`}</p>
-      {/* Components displayed in modal are passed as children */}
     </div>
   );
 };

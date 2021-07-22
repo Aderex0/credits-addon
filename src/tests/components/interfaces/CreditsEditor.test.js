@@ -1,25 +1,26 @@
-import CreditsEditor from '../../../components/credits_panel/interfaces/CreditsEditor'
+import CreditsEditor from "../../../components/credits_panel/interfaces/CreditsEditor";
 // React testing library
-import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom'
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
-describe('<CreditsEditor />', () => {
+describe("<CreditsEditor />", () => {
   const mockProps = {
-    editorText: 'Add',
-    credits: 0
-  }
+    editorText: "Add",
+    credits: 0,
+  };
 
-  const { editorText, credits } = mockProps
+  const { editorText, credits } = mockProps;
 
-  render(<CreditsEditor editorText={editorText} credits={credits} />)
+  render(<CreditsEditor editorText={editorText} credits={credits} />);
 
-  test('renders the correct props', () => {
-    const creditsLabel = screen.getByTestId('credits-label')
-    const creditsInput = screen.getByTestId('credits-input')
-    const okButton = screen.getByTestId('ok-button')
+  // Test props
+  test("renders the correct props", () => {
+    const creditsLabel = screen.getByTestId("credits-label");
+    const creditsInput = screen.getByTestId("credits-input");
+    const okButton = screen.getByTestId("ok-button");
 
-    expect(creditsLabel).toHaveTextContent(editorText)
-    expect(creditsInput).toHaveValue(credits)
-    expect(okButton).toHaveTextContent(editorText)
-  })
-})
+    expect(creditsLabel).toHaveTextContent(editorText);
+    expect(creditsInput).toHaveValue(credits);
+    expect(okButton).toHaveTextContent(editorText);
+  });
+});
